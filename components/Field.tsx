@@ -14,7 +14,7 @@ type Props = {
 
 const parse = (s: string) => Number(s.replace(/[^\d.]/g, ""));
 
-/** Inline number input that sits inside a sentence. Accepts typing, clamps on blur. */
+/** Number input that accepts typing and clamps to a range on blur. */
 export default function Field({ value, onChange, min, max, label, prefix, suffix, indian }: Props) {
   const [draft, setDraft] = useState<string | null>(null);
   const shown = draft ?? (indian ? value.toLocaleString("en-IN") : String(value));

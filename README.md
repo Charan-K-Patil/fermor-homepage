@@ -2,8 +2,8 @@
 
 A redesigned homepage for [Fermor](https://fermor.in), built with **Next.js (App Router), React and TypeScript**, styled with plain CSS.
 
-- **Live:** https://fermor-homepage-nine.vercel.app
-- **Repo:** https://github.com/Charan-K-Patil/fermor-homepage.git
+- **Live:** _add your Vercel URL here_
+- **Repo:** _add your GitHub URL here_
 
 ## Run it locally
 
@@ -22,47 +22,57 @@ Push to GitHub, then import the repo at [vercel.com/new](https://vercel.com/new)
 
 ## What I was trying to say
 
-Fermor is two things at once: a free calculator site people already use, and an app that brings investing, spending and planning together. The homepage should make both feel like one product.
+**Audience:** young Indian professionals (roughly 21 to 30, first or second job, ₹5 to 20L income) who have started earning and want to get better with money but don't know where to start.
 
-So the hero is not a screenshot. It is a working calculator written as a sentence ("I invest ₹15,000 every month for 15 years, earning 12% a year") that you can edit and see the result of immediately. It shows the product's promise, clear maths and no sign-up, within seconds of landing.
+**Feeling:** smart, calm and trustworthy. Not a trading app shouting returns. The goal is the sentence "I finally understand what's happening with my money."
 
-Everything below stays quiet and in plain language:
+**Idea:** *Your money, finally making sense.* One message, one primary action (try the product, not "join a waiting list"), and one visual per section.
 
-1. **Product:** four things the app does, with one real-looking sample (a spending breakdown) instead of decorative cards.
-2. **Calculators:** a plain list that links to the live tools on fermor.in.
-3. **How it works:** analyse, plan, invest. It is a real sequence, so it is numbered.
-4. **Principles:** educational not advice, private by default, written for India. These matter more for a financial brand than another feature grid.
-5. **FAQ and final call to action:** the health check, with the SEBI disclaimer kept in the footer.
+Page flow:
+
+1. **Hero:** the promise, one CTA, and a sample net-worth card.
+2. **Understand, Plan, Invest:** three plain cards that map to Fermor's own Analyse, Plan, Invest framing.
+3. **Calculator demo:** "What could ₹5,000 a month become?" It is a working SIP calculator, not a description of one. "Try another scenario" cycles through realistic examples.
+4. **Investing:** a sample portfolio view and "Know what you own."
+5. **Forecast:** the showpiece. An interactive projected-wealth chart: drag the monthly amount, switch the return assumption, and hover the chart to read any year.
+6. **Close:** "You don't need to be a finance expert. You just need a clearer picture."
 
 ## Design decisions
 
-- **Type:** Bricolage Grotesque for headings and numbers (a grotesque with some character, not a default serif), Figtree for body text. Both load via `next/font`, so there is no layout shift.
-- **Colour:** a cool off-white, deep forest green for trust, and a marigold used sparingly for the "growth" part of the result and the main call to action.
-- **No decoration for its own sake:** no gradient washes, no uppercase label above every heading, no hover-lift on every card. The one piece of motion is the result updating as you change an input.
-- **Responsive:** one column on phones with a collapsing menu, sliders under the sentence for easy touch input, and a two-column hero from 1000px.
-- **Accessibility:** keyboard focus rings, labelled inputs, `aria-live` on the result, native `<details>` for the FAQ, and `prefers-reduced-motion` respected.
+- **Direction:** editorial financial intelligence. Warm off-white, near-black text, thin borders, generous whitespace.
+- **Type:** Instrument Serif for headlines and big numbers, Inter for UI and body text. Both load through `next/font`.
+- **Colour:** one accent, a deep green (`#0d6b57`). Everything else is neutral.
+- **Shape:** 14px radius, one card style, no shadows. Borders and contrast do the work.
+- **Motion, kept small:** numbers count up, the charts draw themselves, sections reveal once on scroll, and buttons and cards lift 1 to 2px on hover. `prefers-reduced-motion` turns all of it off, and a `<noscript>` rule keeps content visible without JavaScript.
+- **Responsive:** one column on phones with a collapsing menu. Two-column layouts from 960px.
+- **Accessibility:** keyboard focus rings, labelled controls, `aria-live` on results, and chart summaries for screen readers.
+
+All portfolio, net worth and forecast numbers are illustrative and live in `data/mockFinancialData.ts`.
 
 ## Calculator maths
 
 Defined in `lib/finance.ts`.
 
 - SIP: `FV = P × ((1 + i)^n − 1) / i × (1 + i)`, where `i` is the monthly rate and `n` is the number of months. This assumes payments at the start of each month.
-- Lumpsum: `FV = P × (1 + r)^t`, compounded yearly.
+- Forecast: an existing corpus compounded monthly, plus the SIP above.
 
-Projections are illustrative and shown at a constant return.
+Projections are illustrative and assume a constant return.
 
 ## Structure
 
 ```
-app/            layout, page, global styles, favicon
-components/     Header, Calculator, Field, GrowthChart, Faq, Logo
-lib/finance.ts  calculator maths and formatting
-lib/content.ts  all page copy and link data
+app/                       layout, page, global styles, favicon
+components/                Header, Hero, HeroCard, FeatureGrid, CalculatorDemo,
+                           InvestmentDashboard, WealthForecast, FinalCta, Footer,
+                           Field, Reveal, Logo, hooks
+data/mockFinancialData.ts  all illustrative numbers
+lib/finance.ts             calculator maths and number formatting
+lib/content.ts             nav and copy
 ```
 
 ## What I would do next
 
-- Replace the sample spending data with real product screenshots or the hero phone video.
+- Replace the sample cards with real product screenshots.
 - Add the Market, Portfolio, ACT and Ask pages that the nav will eventually link to.
 - Add unit tests for `lib/finance.ts` and a Lighthouse pass before launch.
 
