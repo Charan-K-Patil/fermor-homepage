@@ -2,8 +2,8 @@
 
 A redesigned homepage for [Fermor](https://fermor.in), built with **Next.js (App Router), React and TypeScript**, styled with plain CSS.
 
-- **Live:** _add your Vercel URL here_
-- **Repo:** _add your GitHub URL here_
+- **Live:** https://fermor-homepage-nine.vercel.app
+- **Repo:**https://github.com/Charan-K-Patil/fermor-homepage.git
 
 ## Run it locally
 
